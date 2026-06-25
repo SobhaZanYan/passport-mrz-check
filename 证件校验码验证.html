@@ -211,9 +211,52 @@
       font-family: "Consolas", "SF Mono", monospace;
       font-size: 0.9em;
     }
+
+    .site-brand-bar {
+      background: #0a0a0a;
+      color: #e8d5a3;
+      padding: .55rem 1.25rem;
+      border-bottom: 1px solid rgba(232, 213, 163, .12);
+    }
+    .site-brand-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    .site-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+    .site-brand-meta {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-left: auto;
+      font-size: .84rem;
+    }
+    .site-team { font-weight: 600; letter-spacing: .02em; }
+    .site-phone {
+      color: #e8d5a3;
+      text-decoration: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .site-phone:hover { color: #fff; text-decoration: underline; }
   </style>
 </head>
 <body>
+  <div class="site-brand-bar">
+    <div class="site-brand-inner">
+      <img src="Logo.png" alt="Logo" class="site-logo" />
+      <div class="site-brand-meta">
+        <span class="site-team">昝颜团队</span>
+        <a href="tel:+971565473192" class="site-phone">0565473192</a>
+      </div>
+    </div>
+  </div>
   <div class="page">
     <h1>证件校验码验证</h1>
     <p class="subtitle">校验 18 位中国居民身份证末位校验码，以及护照 MRZ 第二行各字段校验位是否符合 ICAO 9303 标准。</p>
