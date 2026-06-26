@@ -245,37 +245,63 @@
       font-variant-numeric: tabular-nums;
     }
     .site-phone:hover { color: #fff; text-decoration: underline; }
+
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid rgba(232, 213, 163, .25);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-left: .5rem;
+    }
+    .lang-btn {
+      padding: 3px 8px;
+      font-size: .68rem;
+      font-weight: 700;
+      background: transparent;
+      border: none;
+      color: rgba(232, 213, 163, .55);
+      cursor: pointer;
+    }
+    .lang-btn:hover { color: #fff; }
+    .lang-btn.active {
+      background: rgba(201, 162, 39, .25);
+      color: #f0c14b;
+    }
   </style>
 </head>
-<body>
+<body data-i18n-title="meta.title">
   <div class="site-brand-bar">
     <div class="site-brand-inner">
       <img src="Logo.png" alt="Logo" class="site-logo" />
       <div class="site-brand-meta">
-        <span class="site-team">昝颜团队</span>
+        <span class="site-team" data-i18n="team">昝颜团队</span>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn active" data-lang="zh">中</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
         <a href="tel:+971565473192" class="site-phone">0565473192</a>
       </div>
     </div>
   </div>
   <div class="page">
-    <h1>证件校验码验证</h1>
-    <p class="subtitle">校验 18 位中国居民身份证末位校验码，以及护照 MRZ 第二行各字段校验位是否符合 ICAO 9303 标准。</p>
+    <h1 data-i18n="title">证件校验码验证</h1>
+    <p class="subtitle" data-i18n="subtitle">校验 18 位中国居民身份证末位校验码，以及护照 MRZ 第二行各字段校验位是否符合 ICAO 9303 标准。</p>
 
     <div class="tabs">
-      <button class="tab active" data-tab="idcard">身份证校验码</button>
-      <button class="tab" data-tab="passport">护照 MRZ 校验码</button>
+      <button class="tab active" data-tab="idcard" data-i18n="tab.id">身份证校验码</button>
+      <button class="tab" data-tab="passport" data-i18n="tab.mrz">护照 MRZ 校验码</button>
     </div>
 
     <!-- 身份证 -->
     <section class="panel active" id="panel-idcard">
       <div class="field">
-        <label for="idcard-input">身份证号码（18 位）</label>
-        <input type="text" id="idcard-input" maxlength="18" placeholder="例如：11010119900307891X" autocomplete="off" spellcheck="false" />
-        <p class="hint">输入完整 18 位号码，末位可为数字 0–9 或字母 X。</p>
+        <label for="idcard-input" data-i18n="id.label">身份证号码（18 位）</label>
+        <input type="text" id="idcard-input" maxlength="18" data-i18n-placeholder="id.placeholder" placeholder="例如：11010119900307891X" autocomplete="off" spellcheck="false" />
+        <p class="hint" data-i18n="id.hint">输入完整 18 位号码，末位可为数字 0–9 或字母 X。</p>
       </div>
       <div class="actions">
-        <button class="btn-primary" id="btn-idcard">验证</button>
-        <button class="btn-secondary" id="btn-idcard-clear">清空</button>
+        <button class="btn-primary" id="btn-idcard" data-i18n="btn.verify">验证</button>
+        <button class="btn-secondary" id="btn-idcard-clear" data-i18n="btn.clear">清空</button>
       </div>
       <div class="result" id="result-idcard"></div>
     </section>
@@ -283,18 +309,18 @@
     <!-- 护照 MRZ -->
     <section class="panel" id="panel-passport">
       <div class="field">
-        <label for="mrz-input">护照 MRZ 第二行（44 字符）</label>
-        <input type="text" id="mrz-input" maxlength="88" placeholder="例如：E123456789CHN9001011M3012311&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;0" autocomplete="off" spellcheck="false" />
-        <p class="hint">只需粘贴护照机读区最后一行（44 字符）。若粘贴两行，将自动取最后一行。</p>
+        <label for="mrz-input" data-i18n="mrz.label">护照 MRZ 第二行（44 字符）</label>
+        <input type="text" id="mrz-input" maxlength="88" data-i18n-placeholder="mrz.placeholder" placeholder="例如：E123456789CHN9001011M3012311&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;0" autocomplete="off" spellcheck="false" />
+        <p class="hint" data-i18n="mrz.hint">只需粘贴护照机读区最后一行（44 字符）。若粘贴两行，将自动取最后一行。</p>
       </div>
       <div class="actions">
-        <button class="btn-primary" id="btn-passport">验证</button>
-        <button class="btn-secondary" id="btn-passport-clear">清空</button>
+        <button class="btn-primary" id="btn-passport" data-i18n="btn.verify">验证</button>
+        <button class="btn-secondary" id="btn-passport-clear" data-i18n="btn.clear">清空</button>
       </div>
       <div class="result" id="result-passport"></div>
     </section>
 
-    <div class="callout">
+    <div class="callout" data-i18n-html="callout">
       <strong>说明：</strong>
       身份证采用 GB 11643 规定的 MOD 11-2 算法；
       护照 MRZ 采用 ICAO Doc 9303 标准，权重循环为 7、3、1，对护照号、出生日期、有效期、可选数据及复合校验位分别验算。
@@ -302,7 +328,10 @@
     </div>
   </div>
 
+  <script src="scripts/site-i18n-core.js"></script>
+  <script src="scripts/i18n.js"></script>
   <script>
+    const t = (k, vars) => SiteI18n.t(k, vars);
     const ID_WEIGHTS = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
     const ID_CHECK_MAP = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
     const MRZ_WEIGHTS = [7, 3, 1];
@@ -337,7 +366,7 @@
     }
 
     function parseMrzLine(raw) {
-      if (!raw.trim()) return { error: '请输入 MRZ 第二行内容。' };
+      if (!raw.trim()) return { error: t('mrz.empty') };
 
       const lines = raw
         .split(/\r?\n/)
@@ -354,12 +383,12 @@
         } else if (text.length === 44) {
           line2 = text;
         } else {
-          return { error: `MRZ 第二行应为 44 个字符，当前为 ${text.length} 个字符。` };
+          return { error: t('mrz.lenError', { n: text.length }) };
         }
       }
 
       if (line2.length !== 44) {
-        return { error: `MRZ 第二行应为 44 个字符，当前为 ${line2.length} 个字符。` };
+        return { error: t('mrz.lenError', { n: line2.length }) };
       }
 
       return { line2 };
@@ -368,7 +397,7 @@
     function validateMrzChars(str, label) {
       for (const ch of str) {
         if (!/[0-9A-Z<]/.test(ch)) {
-          return `${label} 含有非法字符「${ch}」，MRZ 仅允许数字、大写字母和填充符 <。`;
+          return t('mrz.illegalChar', { label, ch });
         }
       }
       return null;
@@ -384,12 +413,12 @@
       const raw = document.getElementById('idcard-input').value.trim().toUpperCase();
 
       if (!raw) {
-        showResult(el, 'warn', '请输入号码', '请填写 18 位身份证号码后再验证。');
+        showResult(el, 'warn', t('id.emptyTitle'), t('id.emptyMsg'));
         return;
       }
 
       if (raw.length !== 18) {
-        showResult(el, 'error', '格式错误', `当前长度为 ${raw.length} 位，应为 18 位。`);
+        showResult(el, 'error', t('id.lenTitle'), t('id.lenMsg', { n: raw.length }));
         return;
       }
 
@@ -397,12 +426,12 @@
       const last = raw[17];
 
       if (!/^\d{17}$/.test(first17)) {
-        showResult(el, 'error', '格式错误', '前 17 位必须全部为数字。');
+        showResult(el, 'error', t('id.digitsTitle'), t('id.digitsMsg'));
         return;
       }
 
       if (!/^[0-9X]$/.test(last)) {
-        showResult(el, 'error', '格式错误', '末位校验码只能是 0–9 或 X。');
+        showResult(el, 'error', t('id.lastTitle'), t('id.lastMsg'));
         return;
       }
 
@@ -411,20 +440,20 @@
 
       const details = `
         <ul class="detail-list">
-          <li>前 17 位：${first17}</li>
-          <li>实际校验码：${last}</li>
-          <li>计算校验码：${expected}</li>
-          <li>校验结果：<span class="${valid ? 'ok' : 'bad'}">${valid ? '合法' : '不合法'}</span></li>
+          <li>${t('id.first17')}：${first17}</li>
+          <li>${t('id.actual')}：${last}</li>
+          <li>${t('id.expected')}：${expected}</li>
+          <li>${t('id.result')}：<span class="${valid ? 'ok' : 'bad'}">${valid ? t('id.valid') : t('id.invalid')}</span></li>
         </ul>
       `;
 
       showResult(
         el,
         valid ? 'success' : 'error',
-        valid ? '校验通过' : '校验失败',
+        valid ? t('id.passTitle') : t('id.failTitle'),
         valid
-          ? `末位校验码 <code>${last}</code> 与 MOD 11-2 算法计算结果一致。${details}`
-          : `末位校验码 <code>${last}</code> 不正确，正确值应为 <code>${expected}</code>。${details}`
+          ? `${t('id.passMsg', { last })}${details}`
+          : `${t('id.failMsg', { last, expected })}${details}`
       );
     }
 
@@ -433,15 +462,15 @@
       const parsed = parseMrzLine(document.getElementById('mrz-input').value);
 
       if (parsed.error) {
-        showResult(el, 'warn', '格式提示', parsed.error);
+        showResult(el, 'warn', t('mrz.formatTitle'), parsed.error);
         return;
       }
 
       const { line2 } = parsed;
-      const charError = validateMrzChars(line2, 'MRZ 第二行');
+      const charError = validateMrzChars(line2, t('mrz.line2Label'));
 
       if (charError) {
-        showResult(el, 'error', '格式错误', charError);
+        showResult(el, 'error', t('mrz.formatErrorTitle'), charError);
         return;
       }
 
@@ -458,37 +487,17 @@
       const compositeCheck = line2[43];
 
       const checks = [
-        {
-          name: '护照号码',
-          data: docNumber,
-          actual: docCheck,
-          expected: calcMrzCheckDigit(docNumber),
-        },
-        {
-          name: '出生日期',
-          data: dob,
-          actual: dobCheck,
-          expected: calcMrzCheckDigit(dob),
-        },
-        {
-          name: '有效期',
-          data: expiry,
-          actual: expiryCheck,
-          expected: calcMrzCheckDigit(expiry),
-        },
-        {
-          name: '可选数据',
-          data: optional,
-          actual: optionalCheck,
-          expected: calcMrzCheckDigit(optional),
-        },
+        { name: t('mrz.field.passport'), data: docNumber, actual: docCheck, expected: calcMrzCheckDigit(docNumber) },
+        { name: t('mrz.field.dob'), data: dob, actual: dobCheck, expected: calcMrzCheckDigit(dob) },
+        { name: t('mrz.field.expiry'), data: expiry, actual: expiryCheck, expected: calcMrzCheckDigit(expiry) },
+        { name: t('mrz.field.optional'), data: optional, actual: optionalCheck, expected: calcMrzCheckDigit(optional) },
       ];
 
       const compositeData =
         docNumber + docCheck + dob + dobCheck + expiry + expiryCheck + optional + optionalCheck;
 
       checks.push({
-        name: '复合校验位',
+        name: t('mrz.field.composite'),
         data: compositeData,
         actual: compositeCheck,
         expected: calcMrzCheckDigit(compositeData),
@@ -499,13 +508,13 @@
 
       const detailItems = checks.map(item => {
         const ok = item.expected !== null && item.actual === item.expected;
-        return `<li>${item.name}（${item.data}）→ 实际 <code>${item.actual}</code>，计算 <code>${item.expected ?? '?'}</code>：<span class="${ok ? 'ok' : 'bad'}">${ok ? '通过' : '失败'}</span></li>`;
+        return `<li>${item.name}（${item.data}）→ ${t('mrz.actual')} <code>${item.actual}</code>，${t('mrz.calc')} <code>${item.expected ?? '?'}</code>：<span class="${ok ? 'ok' : 'bad'}">${ok ? t('mrz.pass') : t('mrz.fail')}</span></li>`;
       }).join('');
 
       const summary = `
         <ul class="detail-list">
-          <li>MRZ 第二行：${line2}</li>
-          <li>护照号：${docNumber} · 国籍：${nationality} · 出生：${dob} · 性别：${sex} · 有效期：${expiry}</li>
+          <li>${t('mrz.line2Label')}：${line2}</li>
+          <li>${t('mrz.summary', { doc: docNumber, nat: nationality, dob, sex, exp: expiry })}</li>
         </ul>
         <ul class="detail-list">${detailItems}</ul>
       `;
@@ -513,7 +522,7 @@
       showResult(
         el,
         allValid ? 'success' : 'error',
-        allValid ? '全部校验位合法' : `${failed.length} 项校验位不合法`,
+        allValid ? t('mrz.passTitle') : t('mrz.failTitle', { n: failed.length }),
         summary
       );
     }
